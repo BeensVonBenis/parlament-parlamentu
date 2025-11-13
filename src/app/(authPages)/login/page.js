@@ -44,6 +44,8 @@ export default function LoginPage() {
       </FormGroup>
       <br></br>
       <Button type={"submit"}>Wyślij</Button>
-    </Form></div>
+    </Form>
+      <Link href={"/register"}>Nie masz konta? Zarejestruj się.</Link>
+    </div>
   );
 }

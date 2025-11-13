@@ -51,6 +51,8 @@ export default function RegisterPage() {
       </FormGroup>
       <br></br>
       <Button type={"submit"}>Wyślij</Button>
-    </Form></div>
+    </Form>
+      <Link href={"/login"}>Masz już konto? Zaloguj się.</Link>
+    </div>
   );
 }
