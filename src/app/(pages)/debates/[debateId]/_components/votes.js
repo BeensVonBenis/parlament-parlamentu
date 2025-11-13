@@ -1,20 +1,33 @@
 "use client"
 import {Button, Table} from "react-bootstrap";
 import {scale} from "@/globals";
+import {submitVote} from "@/app/(pages)/debates/[debateId]/_server";
 
 export function Votes({votes, speechId, author, closed, user}){
 
   function Scale({category,votes, locked, speechId, user, ownVote}){
     const score = ownVote ? ownVote[`score${category}`] : null;
-    const countedVotes=votes.map((a)=>a[`score${category}`]).filter((a)=>a);
+    const countedVotes=votes.map((a)=>a[`score${category}`]).filter((a)=>a || a===0);
     const average=countedVotes.reduce((acc, a)=>acc+a, 0)/countedVotes.length;
-    return <div>{
-      scale[Math.round(average)]
-    }avg{average || "?"}{!locked &&    [...new Array(5)].map((a, i)=>
-      <Button variant={score === i ? "primary" : "none"}>
-        {scale[i]}
-      </Button>)}</div>
- ;
+    return (
+      <div>
+        {scale?.[Math.round(average)]}
+        {" "}avg{average ?? "?"}
+        {!locked &&
+          Array.from({ length: 5 }, (_, i) => (
+            <Button
+              key={i}
+              onClick={() =>
+                submitVote(`score${category}`, speechId, i, parseInt(user.id), ownVote?.id)
+              }
+              variant={score === i ? "primary" : "none"}
+            >
+              {scale[i]}
+            </Button>
+          ))
+        }
+      </div>
+    );
 
   }
   const thisUsersVotes=votes.find((a)=>a.userId === parseInt(user?.id));
