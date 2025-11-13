@@ -3,9 +3,13 @@ import {
   StageView
 } from "@/app/(pages)/debates/[debateId]/_components/stageView";
 import {stages} from "@/globals";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/auth";
 
 export default async function page({params}){
   const {debateId} = await params;
+  const session = await getServerSession(authOptions);
+  const {user = {}} = session || {user: {}};
   const debateInfo=await orm.debate.findFirst({
     where: {
       id: parseInt(debateId)
@@ -13,6 +17,7 @@ export default async function page({params}){
     include: {
       speeches: {
         include: {
+          votes: true,
           user: true
         }
       }
@@ -33,6 +38,7 @@ export default async function page({params}){
         return <>
           <h2>{stages[i]}</h2>
           <StageView
+            user={user}
           key={i}
           speeches={a}
           closed={(()=>{

@@ -104,11 +104,11 @@ model Vote {
   speechId Int
   speech   Speech @relation(fields: [speechId], references: [id])
 
-  scorePathos   Int @default(0)
-  scoreLogos    Int @default(0)
-  scoreMistakes Int @default(0)
-  scoreContext  Int @default(0)
-  scoreRole     Int @default(0)
+  scorePathos   Int?
+  scoreLogos    Int?
+  scoreMistakes Int?
+  scoreContext  Int?
+  scoreRole     Int?
 }
 
 //TODO komentarze do wypowiedzi

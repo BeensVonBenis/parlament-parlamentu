@@ -2,6 +2,8 @@ import {orm} from "@/lib/orm";
 import {Table} from "react-bootstrap";
 import {stages} from "@/globals";
 import Link from "next/link";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/auth";
 
 
 export default async function getPage(){

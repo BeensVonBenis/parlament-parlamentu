@@ -8,3 +8,11 @@ export const stages={
   6: "Czwórka propozycji",
   7: "Czwórka opozycji",
 }
+
+export const scale={
+  0: "🥶",
+  1: "🌵",
+  2: "👍",
+  3: "✨",
+  4: "🔥"
+}
