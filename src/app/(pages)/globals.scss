@@ -1,0 +1,18 @@
+.rootContainer{
+  width: 100%;
+}
+.contentContainer{
+  width: 100%;
+  padding: 0px 1rem 0px 1rem;
+}
+.rootNavbar{
+  .navbar-brand{
+    margin-left: 1rem;
+  }
+  .navbarSpacer{
+    margin-right: 1rem;
+  }
+}
+.wmde-markdown{
+  background: var(--bs-body-bg) !important;
+}

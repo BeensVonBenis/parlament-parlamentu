@@ -1,15 +1,18 @@
+import "./page.scss"
 import {PrismaClient} from "@prisma/client";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
+import Link from "next/link";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  const prisma = new PrismaClient();
-  const data= await prisma.user.findMany({});
-  console.log(session)
   return (
-    <div>
-      {JSON.stringify(data, null, 2)}
+    <div className="homePage">
+      <h4>Witam w tym skromnym interfejsie :)</h4>
+      <br></br>
+
+      <h1>Na co czekasz?</h1>
+      <Link href={"debates"}>  <h1>Przejdź do debat!!!</h1></Link>
+
     </div>
   );
 }

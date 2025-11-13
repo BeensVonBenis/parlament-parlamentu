@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.scss";
+import "../(pages)/globals.scss";
 import "./layout.scss"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getServerSession } from "next-auth";

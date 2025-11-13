@@ -79,9 +79,10 @@ model Debate {
 // Jest to odpowiedź w danej roli danego użytkownika
 
 model Speech {
-  id      Int    @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   stage   Int
   content String
+  elected Boolean @default(false)
 
   debateId Int
   debate   Debate @relation(fields: [debateId], references: [id])
