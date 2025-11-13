@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.scss";
+import "../globals.scss";
+import "./layout.scss"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -24,11 +25,14 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
-      <body data-bs-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <SessionProvider session={session}>
+    <body data-bs-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <SessionProvider session={session}>
+      <div className="authPagesContainer">
         {children}
-      </SessionProvider>
-      </body>
+      </div>
+
+    </SessionProvider>
+    </body>
     </html>
   );
 }

@@ -24,9 +24,9 @@ export async function middleware(request) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (isPublicPath && token && (path === "/login" || path === "/register")) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+  // if (isPublicPath && token && (path === "/login" || path === "/register")) {
+  //   return NextResponse.redirect(new URL("/", request.url));
+  // }
 
   return NextResponse.next();
 }
