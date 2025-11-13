@@ -33,6 +33,7 @@ export function Votes({votes, speechId, author, closed, user}){
   const thisUsersVotes=votes.find((a)=>a.userId === parseInt(user?.id));
   console.log(votes, user,thisUsersVotes, author, closed, author.id, user.id)
   return <Table>
+    <tr><th colSpan={2}>Ocena</th></tr>
     <tr>
       <td>Logos</td>
       <td><Scale locked={closed || author.id === parseInt(user.id)} votes={votes} ownVote={thisUsersVotes} speechId={speechId} user={user} category={"Logos"}></Scale></td>

@@ -5,6 +5,9 @@ import {
 import {stages} from "@/globals";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
+import {
+  SpeechCreator
+} from "@/app/(pages)/debates/[debateId]/_components/speechCreator";
 
 export default async function page({params}){
   const {debateId} = await params;
@@ -52,5 +55,6 @@ export default async function page({params}){
         ></StageView></>
       })
     }
+    <SpeechCreator stage={debateInfo?.stage} userId={user?.id} debateId={debateInfo?.id}></SpeechCreator>
   </div>
 }

@@ -24,3 +24,11 @@ export async function submitVote(category, speechId, vote, userId, ownVote){
   }
   revalidatePath("debates")
 }
+export async function submitSpeech(debateId, userId, stage, content){
+ await orm.speech.create({
+   data: {
+     debateId, userId: parseInt(userId), stage, content,
+   }
+ })
+  revalidatePath("debates")
+}
