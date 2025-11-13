@@ -16,13 +16,50 @@ datasource db {
 // Później możliwy podział na inne szkoły
 
 model User {
-  id       Int      @id @default(autoincrement())
-  login    String
+  id       Int       @id @default(autoincrement())
+  login    String    @unique
   password String
   name     String
   surname  String
   speeches Speech[]
   votes    Vote[]
+  sessions Session[]
+  accounts Account[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 // Kolejne 3 modele korzystają z parametru stage
