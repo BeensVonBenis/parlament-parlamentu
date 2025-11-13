@@ -1,0 +1,38 @@
+-- CreateTable
+CREATE TABLE "User" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "surname" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Debate" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "stage" INTEGER NOT NULL DEFAULT 0,
+    "topic" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Speech" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "stage" INTEGER NOT NULL,
+    "content" TEXT NOT NULL,
+    "debateId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
+    CONSTRAINT "Speech_debateId_fkey" FOREIGN KEY ("debateId") REFERENCES "Debate" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Speech_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Vote" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "userId" INTEGER NOT NULL,
+    "speechId" INTEGER NOT NULL,
+    "scorePathos" INTEGER NOT NULL DEFAULT 0,
+    "scoreLogos" INTEGER NOT NULL DEFAULT 0,
+    "scoreMistakes" INTEGER NOT NULL DEFAULT 0,
+    "scoreContext" INTEGER NOT NULL DEFAULT 0,
+    "scoreRole" INTEGER NOT NULL DEFAULT 0,
+    CONSTRAINT "Vote_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Vote_speechId_fkey" FOREIGN KEY ("speechId") REFERENCES "Speech" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
