@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/generated";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();

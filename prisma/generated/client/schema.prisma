@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Później możliwy podział na inne szkoły
+
+model User {
+  id       Int       @id @default(autoincrement())
+  login    String    @unique
+  password String
+  name     String
+  surname  String
+  speeches Speech[]
+  votes    Vote[]
+  sessions Session[]
+  accounts Account[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Kolejne 3 modele korzystają z parametru stage
+// Odpowiada on za określenie roli w jakiej pada wypowiedź
+// Przykładowo stage 0: jedynka propozycji 5: trójka opozycji
+
+// Model debaty, docelowo będzie miał "marszałka"
+// Marszałek będzie zestawem zasad, które będą utrudniać wypowiedzi
+
+model Debate {
+  id       Int      @id @default(autoincrement())
+  stage    Int      @default(0)
+  topic    String
+  speeches Speech[]
+}
+
+// Jest to odpowiedź w danej roli danego użytkownika
+
+model Speech {
+  id      Int     @id @default(autoincrement())
+  stage   Int
+  content String
+  elected Boolean @default(false)
+
+  debateId Int
+  debate   Debate @relation(fields: [debateId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  votes Vote[]
+}
+
+// Jest to ocena wypowiedzi w kategoriach (score{Kategoria})
+
+model Vote {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  speechId Int
+  speech   Speech @relation(fields: [speechId], references: [id])
+
+  scorePathos   Int?
+  scoreLogos    Int?
+  scoreMistakes Int?
+  scoreContext  Int?
+  scoreRole     Int?
+}
+
+//TODO komentarze do wypowiedzi

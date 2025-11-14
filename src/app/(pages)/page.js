@@ -1,7 +1,4 @@
 import "./page.scss"
-import {PrismaClient} from "@prisma/client";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/auth";
 import Link from "next/link";
 
 export default async function Home() {
@@ -12,7 +9,6 @@ export default async function Home() {
 
       <h1>Na co czekasz?</h1>
       <Link href={"debates"}>  <h1>Przejdź do debat!!!</h1></Link>
-
     </div>
   );
 }
