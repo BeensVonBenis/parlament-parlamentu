@@ -15,7 +15,7 @@ export function SpeechCreator({debateId, userId, stage}){
   const [content, setContent] = useState("");
   return <>
     <Button onClick={()=>setOpen((a)=>!a)}>Wypowiedz się</Button>
-    <Modal  size={"xl"}  onClose={() => setOpen(false)} show={open}>
+    <Modal  size={"xl"}  onHide={() => setOpen((a)=>!a)} show={open}>
       <ModalHeader closeButton>Napisz wypowiedź </ModalHeader>
       <ModalBody>
         <MDEditor  style={{height: "50vh !important"}} value={content}

@@ -16,3 +16,8 @@
 .wmde-markdown{
   background: var(--bs-body-bg) !important;
 }
+.w-md-editor-content{
+   .wmde-markdown{
+    background: inherit !important;
+  }
+}
